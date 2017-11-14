@@ -1,16 +1,19 @@
 #include<Servo.h>
 
-Servo myServo;
-int pos = 90;
+boolean restarted = false;
 
+//Servo variables
+Servo myServo;
+int close = 0;
+int open = 90;
+
+//Combination variables
 int numbers[] = {2,3,4,5,6,7};
 const int numbersSize = sizeof(numbers) / sizeof(numbers[0]);
 int solution[4];
 const int solutionSize = sizeof(solution) / sizeof(solution[0]);
 int guess[4];
 const int guessSize = sizeof(guess) / sizeof(guess[0]);
-
-
 
 int guessNumber = 0;
 
@@ -76,7 +79,7 @@ void setup() {
   pinMode(yellowLed_4, OUTPUT);
 
   myServo.attach(16);
-  myServo.write(pos);
+  myServo.write(close);
 
   Serial.begin(9600);
 
@@ -126,9 +129,25 @@ digitalWrite(15, HIGH);*/
   if(!checked){
     CheckGuess();
     checked = true;
-    if (greens >= 4){
+    if (greens >= 4){ //Winning condition
+      restarted = false;
       Serial.println("you guessed right!");
-    } else {
+      myServo.write(open);
+
+
+      while (restarted == false){
+        buttonState_2 = digitalRead(button_2);
+        if (buttonState_2 != lastButtonState_2){
+          greens = 0;
+          guessNumber = 0;
+          myServo.write(close);
+          restarted = true;
+        }
+      }
+    }
+
+
+    else {
       delay(8000);
       KillLights();
       guessNumber = 0;
