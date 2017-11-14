@@ -58,6 +58,16 @@ void setup() {
   pinMode(button_6, INPUT);
   pinMode(button_7, INPUT);
 
+  pinMode(greenLed_1, OUTPUT);
+  pinMode(greenLed_2, OUTPUT);
+  pinMode(greenLed_3, OUTPUT);
+  pinMode(greenLed_4, OUTPUT);
+
+  pinMode(yellowLed_1, OUTPUT);
+  pinMode(yellowLed_2, OUTPUT);
+  pinMode(yellowLed_3, OUTPUT);
+  pinMode(yellowLed_4, OUTPUT);
+
   Serial.begin(9600);
 
   randomSeed(analogRead(5));
