@@ -7,6 +7,7 @@ const int guessSize = sizeof(guess) / sizeof(guess[0]);
 
 int guessNumber = 0;
 
+//Buttons setup
 const int button_2 = 2;
 int buttonState_2 = 0;
 int lastButtonState_2 = 0;
@@ -31,6 +32,18 @@ const int button_7 = 7;
 int buttonState_7 = 0;
 int lastButtonState_7 = 0;
 
+//Lights setup
+const int greenLed_1 = 8;
+const int greenLed_2 = 9;
+const int greenLed_3 = 10;
+const int greenLed_4 = 11;
+
+const int yellowLed_1 = 12;
+const int yellowLed_2 = 13;
+const int yellowLed_3 = 14;
+const int yellowLed_4 = 15;
+
+
 int greens = 0;
 int yellows = 0;
 
@@ -47,14 +60,13 @@ void setup() {
 
   Serial.begin(9600);
 
-  randomSeed(analogRead(0));
+  randomSeed(analogRead(5));
 
   Shuffle();
   GenerateSolution();
 
   /*
   Printing lines to check if the shuffling and solution generation work
-
   Serial.println(numbers[0]);
   Serial.println(numbers[1]);
   Serial.println(numbers[2]);
@@ -63,10 +75,10 @@ void setup() {
   Serial.println(numbers[5]); */
 
 
-  /*Serial.println(solution[0]);
+  Serial.println(solution[0]);
   Serial.println(solution[1]);
   Serial.println(solution[2]);
-  Serial.println(solution[3]);*/
+  Serial.println(solution[3]);
 
 
   Serial.println("Welcome to mastermind!");
