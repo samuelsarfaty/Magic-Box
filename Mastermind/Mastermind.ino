@@ -235,4 +235,10 @@ void CheckGuess(){
     Serial.println(" is on");
   }
 
+  for (int i = yellowLed_1; i < yellowLed_1 + yellows; i++){
+    Serial.print("yellow led in pin: ");
+    Serial.print(i);
+    Serial.println(" is on");
+  }
+
 }
