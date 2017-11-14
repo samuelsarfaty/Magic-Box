@@ -1,9 +1,16 @@
+#include<Servo.h>
+
+Servo myServo;
+int pos = 90;
+
 int numbers[] = {2,3,4,5,6,7};
 const int numbersSize = sizeof(numbers) / sizeof(numbers[0]);
 int solution[4];
 const int solutionSize = sizeof(solution) / sizeof(solution[0]);
 int guess[4];
 const int guessSize = sizeof(guess) / sizeof(guess[0]);
+
+
 
 int guessNumber = 0;
 
@@ -68,12 +75,17 @@ void setup() {
   pinMode(yellowLed_3, OUTPUT);
   pinMode(yellowLed_4, OUTPUT);
 
+  myServo.attach(16);
+  myServo.write(pos);
+
   Serial.begin(9600);
 
   randomSeed(analogRead(5));
 
   Shuffle();
   GenerateSolution();
+
+
 
   /*
   Printing lines to check if the shuffling and solution generation work
@@ -99,6 +111,14 @@ void setup() {
 }
 
 void loop() {
+/*digitalWrite(8, HIGH);
+digitalWrite(9, HIGH);
+digitalWrite(10, HIGH);
+digitalWrite(11, HIGH);
+digitalWrite(12, HIGH);
+digitalWrite(13, HIGH);
+digitalWrite(14, HIGH);
+digitalWrite(15, HIGH);*/
 
     while (guessNumber < guessSize){
       CheckForInput();
@@ -109,6 +129,8 @@ void loop() {
     if (greens >= 4){
       Serial.println("you guessed right!");
     } else {
+      delay(8000);
+      KillLights();
       guessNumber = 0;
       Serial.println("try again");
       checked = false;
@@ -223,22 +245,34 @@ void CheckGuess(){
     }
   }
 
-  Serial.println("");
+  /*Serial.println("");
   Serial.print("Greens:" );
   Serial.println (greens);
   Serial.print("Yellows:" );
-  Serial.println (yellows);
+  Serial.println (yellows);*/
 
   for (int i = greenLed_1; i < greenLed_1 + greens; i++){
     Serial.print("green led in pin: ");
     Serial.print(i);
     Serial.println(" is on");
+
+    digitalWrite(i, HIGH);
+
   }
 
   for (int i = yellowLed_1; i < yellowLed_1 + yellows; i++){
     Serial.print("yellow led in pin: ");
     Serial.print(i);
     Serial.println(" is on");
+
+    digitalWrite(i, HIGH);
+
   }
 
+}
+
+void KillLights(){
+  for (int i = greenLed_1; i <= yellowLed_4; i++){
+    digitalWrite(i, LOW);
+  }
 }
