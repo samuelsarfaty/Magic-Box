@@ -79,14 +79,16 @@ void setup() {
   pinMode(yellowLed_4, OUTPUT);
 
   myServo.attach(16);
-  myServo.write(close);
+  //myServo.write(close);
 
   Serial.begin(9600);
 
   randomSeed(analogRead(5));
 
-  Shuffle();
-  GenerateSolution();
+  //Shuffle();
+  //GenerateSolution();
+
+  Restart();
 
 
 
@@ -130,23 +132,10 @@ digitalWrite(15, HIGH);*/
     CheckGuess();
     checked = true;
     if (greens >= 4){ //Winning condition
-      restarted = false;
+      //restarted = false;
       Serial.println("you guessed right!");
       myServo.write(open);
-
-
-      while (restarted == false){
-        buttonState_2 = digitalRead(button_2);
-        if (buttonState_2 != lastButtonState_2){
-          greens = 0;
-          guessNumber = 0;
-          myServo.write(close);
-          restarted = true;
-        }
-      }
     }
-
-
     else {
       delay(8000);
       KillLights();
@@ -294,4 +283,13 @@ void KillLights(){
   for (int i = greenLed_1; i <= yellowLed_4; i++){
     digitalWrite(i, LOW);
   }
+}
+
+void Restart(){
+  Shuffle();
+  GenerateSolution();
+  KillLights();
+  myServo.write(close);
+  guessNumber = 0;
+  restarted = true;
 }
