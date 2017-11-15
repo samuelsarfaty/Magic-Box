@@ -1,6 +1,7 @@
 #include<Servo.h>
 
 boolean restarted = false;
+boolean hasWon = false;
 
 //Servo variables
 Servo myServo;
@@ -102,10 +103,7 @@ void setup() {
   Serial.println(numbers[5]); */
 
 
-  Serial.println(solution[0]);
-  Serial.println(solution[1]);
-  Serial.println(solution[2]);
-  Serial.println(solution[3]);
+
 
 
   Serial.println("Welcome to mastermind!");
@@ -127,6 +125,7 @@ digitalWrite(15, HIGH);*/
 
     while (guessNumber < guessSize){
       CheckForInput();
+      //Serial.println("checking...");
     }
   if(!checked){
     CheckGuess();
@@ -135,6 +134,9 @@ digitalWrite(15, HIGH);*/
       //restarted = false;
       Serial.println("you guessed right!");
       myServo.write(open);
+      hasWon = true;
+      //checked = false;
+
     }
     else {
       delay(8000);
@@ -144,7 +146,17 @@ digitalWrite(15, HIGH);*/
       checked = false;
     }
   }
+
+  if (hasWon == true){
+    if (digitalRead(button_2) == HIGH && digitalRead(button_7) == HIGH){
+    delay(2000);
+    Restart();
+    hasWon = false;
+    checked = false;
+    }
+  }
 }
+
 
 void Shuffle(){ //Shuffles the elements of numbers[]
   for (int i=0; i < numbersSize; i++) {
@@ -159,6 +171,11 @@ void GenerateSolution(){ //Picks the first 4 elements of numbers[] after shuffli
   for (int i = 0; i < solutionSize; i++){
     solution[i] = numbers[i];
   }
+
+  Serial.println(solution[0]);
+  Serial.println(solution[1]);
+  Serial.println(solution[2]);
+  Serial.println(solution[3]);
 }
 
 void CheckForInput(){
@@ -286,10 +303,11 @@ void KillLights(){
 }
 
 void Restart(){
+  guessNumber = 0;
   Shuffle();
   GenerateSolution();
   KillLights();
   myServo.write(close);
-  guessNumber = 0;
-  restarted = true;
+
+  //restarted = true;
 }
