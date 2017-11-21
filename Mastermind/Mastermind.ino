@@ -3,6 +3,9 @@
 boolean restarted = false;
 boolean hasWon = false;
 
+//Number Display
+
+
 //Servo variables
 Servo myServo;
 int close = 0;
@@ -63,11 +66,22 @@ boolean checked = false;
 void setup() {
 
   pinMode(button_2, INPUT);
+  digitalWrite(button_2, HIGH);
+
   pinMode(button_3, INPUT);
+  digitalWrite(button_3, HIGH);
+
   pinMode(button_4, INPUT);
+  digitalWrite(button_4, HIGH);
+
   pinMode(button_5, INPUT);
+  digitalWrite(button_5, HIGH);
+
   pinMode(button_6, INPUT);
+  digitalWrite(button_6, HIGH);
+
   pinMode(button_7, INPUT);
+  digitalWrite(button_7, HIGH);
 
   pinMode(greenLed_1, OUTPUT);
   pinMode(greenLed_2, OUTPUT);
@@ -182,10 +196,11 @@ void CheckForInput(){
 
   buttonState_2 = digitalRead(button_2);
   if (buttonState_2 != lastButtonState_2){
-    if(buttonState_2 == HIGH){
+    if(buttonState_2 == LOW){
       guess[guessNumber] = button_2; //guess element in position guess number becomes number of button pressed
       Serial.print(guess[guessNumber]);
       guessNumber++;
+      delay(50);
       //Serial.println(guessNumber);
 
     }
@@ -194,10 +209,11 @@ void CheckForInput(){
 
   buttonState_3 = digitalRead(button_3);
   if (buttonState_3 != lastButtonState_3){
-    if(buttonState_3 == HIGH){
+    if(buttonState_3 == LOW){
       guess[guessNumber] = button_3; //guess element in position guess number becomes number of button pressed
       Serial.print(guess[guessNumber]);
       guessNumber++;
+      delay(50);
       //Serial.println(guessNumber);
 
     }
@@ -206,10 +222,11 @@ void CheckForInput(){
 
   buttonState_4 = digitalRead(button_4);
   if (buttonState_4 != lastButtonState_4){
-    if(buttonState_4 == HIGH){
+    if(buttonState_4 == LOW){
       guess[guessNumber] = button_4; //guess element in position guess number becomes number of button pressed
       Serial.print(guess[guessNumber]);
       guessNumber++;
+      delay(50);
       //Serial.println(guessNumber);
 
     }
@@ -218,10 +235,11 @@ void CheckForInput(){
 
   buttonState_5 = digitalRead(button_5);
   if (buttonState_5 != lastButtonState_5){
-    if(buttonState_5 == HIGH){
+    if(buttonState_5 == LOW){
       guess[guessNumber] = button_5; //guess element in position guess number becomes number of button pressed
       Serial.print(guess[guessNumber]);
       guessNumber++;
+      delay(50);
       //Serial.println(guessNumber);
 
     }
@@ -230,10 +248,11 @@ void CheckForInput(){
 
   buttonState_6 = digitalRead(button_6);
   if (buttonState_6 != lastButtonState_6){
-    if(buttonState_6 == HIGH){
+    if(buttonState_6 == LOW){
       guess[guessNumber] = button_6; //guess element in position guess number becomes number of button pressed
       Serial.print(guess[guessNumber]);
       guessNumber++;
+      delay(50);
       //Serial.println(guessNumber);
 
     }
@@ -242,10 +261,11 @@ void CheckForInput(){
 
   buttonState_7 = digitalRead(button_7);
   if (buttonState_7 != lastButtonState_7){
-    if(buttonState_7 == HIGH){
+    if(buttonState_7 == LOW){
       guess[guessNumber] = button_7; //guess element in position guess number becomes number of button pressed
       Serial.print(guess[guessNumber]);
       guessNumber++;
+      delay(50);
       //Serial.println(guessNumber);
 
     }
