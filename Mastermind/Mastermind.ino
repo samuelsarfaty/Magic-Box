@@ -3,7 +3,6 @@
 boolean restarted = false;
 boolean hasWon = false;
 
-//Number Display
 
 
 //Servo variables
@@ -57,6 +56,18 @@ const int yellowLed_2 = 13;
 const int yellowLed_3 = 14;
 const int yellowLed_4 = 15;
 
+//Display setup
+int D1 = 15;
+int D2 = 16;
+
+int pA = 8;
+int pB = 9;
+int pC = 10;
+int pD = 11;
+int pE = 12;
+int pF = 13;
+int pG = 14;
+
 
 int greens = 0;
 int yellows = 0;
@@ -83,7 +94,18 @@ void setup() {
   pinMode(button_7, INPUT);
   digitalWrite(button_7, HIGH);
 
-  pinMode(greenLed_1, OUTPUT);
+  pinMode(pA, OUTPUT);
+  pinMode(pB, OUTPUT);
+  pinMode(pC, OUTPUT);
+  pinMode(pD, OUTPUT);
+  pinMode(pE, OUTPUT);
+  pinMode(pF, OUTPUT);
+  pinMode(pG, OUTPUT);
+
+  pinMode(D1, OUTPUT);
+  pinMode(D2, OUTPUT);
+
+  /*pinMode(greenLed_1, OUTPUT);
   pinMode(greenLed_2, OUTPUT);
   pinMode(greenLed_3, OUTPUT);
   pinMode(greenLed_4, OUTPUT);
@@ -91,9 +113,9 @@ void setup() {
   pinMode(yellowLed_1, OUTPUT);
   pinMode(yellowLed_2, OUTPUT);
   pinMode(yellowLed_3, OUTPUT);
-  pinMode(yellowLed_4, OUTPUT);
+  pinMode(yellowLed_4, OUTPUT);*/
 
-  myServo.attach(16);
+  myServo.attach(17);
   //myServo.write(close);
 
   Serial.begin(9600);
@@ -128,6 +150,7 @@ void setup() {
 }
 
 void loop() {
+
 /*digitalWrite(8, HIGH);
 digitalWrite(9, HIGH);
 digitalWrite(10, HIGH);
@@ -145,16 +168,19 @@ digitalWrite(15, HIGH);*/
     CheckGuess();
     checked = true;
     if (greens >= 4){ //Winning condition
-      //restarted = false;
+
       Serial.println("you guessed right!");
       myServo.write(open);
       hasWon = true;
+
+      //Show the numbers for some time
+      ShowLights(8000);
       //checked = false;
 
     }
     else {
-      delay(8000);
-      KillLights();
+      ShowLights(8000);
+      //delay(8000);
       guessNumber = 0;
       Serial.println("try again");
       checked = false;
@@ -162,7 +188,7 @@ digitalWrite(15, HIGH);*/
   }
 
   if (hasWon == true){
-    if (digitalRead(button_2) == HIGH && digitalRead(button_7) == HIGH){
+    if (digitalRead(button_2) == LOW && digitalRead(button_7) == LOW){
     delay(2000);
     Restart();
     hasWon = false;
@@ -296,13 +322,14 @@ void CheckGuess(){
   Serial.print("Yellows:" );
   Serial.println (yellows);*/
 
+  /*
+  //Light green and yellows
   for (int i = greenLed_1; i < greenLed_1 + greens; i++){
     Serial.print("green led in pin: ");
     Serial.print(i);
     Serial.println(" is on");
 
     digitalWrite(i, HIGH);
-
   }
 
   for (int i = yellowLed_1; i < yellowLed_1 + yellows; i++){
@@ -311,15 +338,20 @@ void CheckGuess(){
     Serial.println(" is on");
 
     digitalWrite(i, HIGH);
-
   }
+  */
 
 }
 
 void KillLights(){
-  for (int i = greenLed_1; i <= yellowLed_4; i++){
+  /*for (int i = greenLed_1; i <= yellowLed_4; i++){
     digitalWrite(i, LOW);
+  }*/
+
+  for (int i = pA; i <= pG; i++){
+    digitalWrite(i, HIGH);
   }
+
 }
 
 void Restart(){
@@ -330,4 +362,126 @@ void Restart(){
   myServo.write(close);
 
   //restarted = true;
+}
+
+void ShowLights(int delay){
+  long startTime = millis();
+  long endTime = startTime;
+
+  while ((endTime - startTime) <= delay){
+    lightGreens(greens);
+    lightYellows(yellows);
+    endTime = millis();
+  }
+  KillLights();
+
+}
+
+void lightGreens(int greens){
+  digitalWrite(D1, HIGH);
+  digitalWrite(D2, LOW);
+
+  switch(greens){
+    case 0:
+      digitalWrite(pA, LOW);
+      digitalWrite(pB, LOW);
+      digitalWrite(pC, LOW);
+      digitalWrite(pD, LOW);
+      digitalWrite(pE, LOW);
+      digitalWrite(pF, LOW);
+      digitalWrite(pG, HIGH);
+      break;
+    case 1:
+      digitalWrite(pA, HIGH);
+      digitalWrite(pB, LOW);
+      digitalWrite(pC, LOW);
+      digitalWrite(pD, HIGH);
+      digitalWrite(pE, HIGH);
+      digitalWrite(pF, HIGH);
+      digitalWrite(pG, HIGH);
+      break;
+    case 2:
+      digitalWrite(pA, LOW);
+      digitalWrite(pB, LOW);
+      digitalWrite(pC, HIGH);
+      digitalWrite(pD, LOW);
+      digitalWrite(pE, LOW);
+      digitalWrite(pF, HIGH);
+      digitalWrite(pG, LOW);
+      break;
+    case 3:
+      digitalWrite(pA, LOW);
+      digitalWrite(pB, LOW);
+      digitalWrite(pC, LOW);
+      digitalWrite(pD, LOW);
+      digitalWrite(pE, HIGH);
+      digitalWrite(pF, HIGH);
+      digitalWrite(pG, LOW);
+      break;
+    case 4:
+      digitalWrite(pA, HIGH);
+      digitalWrite(pB, LOW);
+      digitalWrite(pC, LOW);
+      digitalWrite(pD, HIGH);
+      digitalWrite(pE, HIGH);
+      digitalWrite(pF, LOW);
+      digitalWrite(pG, LOW);
+      break;
+  }
+  delay(10);
+
+}
+
+void lightYellows(int yellows){
+  digitalWrite(D1, LOW);
+  digitalWrite(D2, HIGH);
+
+  switch(yellows){
+    case 0:
+      digitalWrite(pA, LOW);
+      digitalWrite(pB, LOW);
+      digitalWrite(pC, LOW);
+      digitalWrite(pD, LOW);
+      digitalWrite(pE, LOW);
+      digitalWrite(pF, LOW);
+      digitalWrite(pG, HIGH);
+      break;
+    case 1:
+      digitalWrite(pA, HIGH);
+      digitalWrite(pB, LOW);
+      digitalWrite(pC, LOW);
+      digitalWrite(pD, HIGH);
+      digitalWrite(pE, HIGH);
+      digitalWrite(pF, HIGH);
+      digitalWrite(pG, HIGH);
+      break;
+    case 2:
+      digitalWrite(pA, LOW);
+      digitalWrite(pB, LOW);
+      digitalWrite(pC, HIGH);
+      digitalWrite(pD, LOW);
+      digitalWrite(pE, LOW);
+      digitalWrite(pF, HIGH);
+      digitalWrite(pG, LOW);
+      break;
+    case 3:
+      digitalWrite(pA, LOW);
+      digitalWrite(pB, LOW);
+      digitalWrite(pC, LOW);
+      digitalWrite(pD, LOW);
+      digitalWrite(pE, HIGH);
+      digitalWrite(pF, HIGH);
+      digitalWrite(pG, LOW);
+      break;
+    case 4:
+      digitalWrite(pA, HIGH);
+      digitalWrite(pB, LOW);
+      digitalWrite(pC, LOW);
+      digitalWrite(pD, HIGH);
+      digitalWrite(pE, HIGH);
+      digitalWrite(pF, LOW);
+      digitalWrite(pG, LOW);
+      break;
+  }
+  delay(10);
 }
