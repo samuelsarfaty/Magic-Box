@@ -3,8 +3,6 @@
 boolean restarted = false;
 boolean hasWon = false;
 
-
-
 //Servo variables
 Servo myServo;
 int close = 0;
@@ -44,17 +42,6 @@ int lastButtonState_6 = 0;
 const int button_7 = 7;
 int buttonState_7 = 0;
 int lastButtonState_7 = 0;
-
-//Lights setup
-const int greenLed_1 = 8;
-const int greenLed_2 = 9;
-const int greenLed_3 = 10;
-const int greenLed_4 = 11;
-
-const int yellowLed_1 = 12;
-const int yellowLed_2 = 13;
-const int yellowLed_3 = 14;
-const int yellowLed_4 = 15;
 
 //Display setup
 int D1 = 15;
@@ -105,16 +92,6 @@ void setup() {
   pinMode(D1, OUTPUT);
   pinMode(D2, OUTPUT);
 
-  /*pinMode(greenLed_1, OUTPUT);
-  pinMode(greenLed_2, OUTPUT);
-  pinMode(greenLed_3, OUTPUT);
-  pinMode(greenLed_4, OUTPUT);
-
-  pinMode(yellowLed_1, OUTPUT);
-  pinMode(yellowLed_2, OUTPUT);
-  pinMode(yellowLed_3, OUTPUT);
-  pinMode(yellowLed_4, OUTPUT);*/
-
   myServo.attach(17);
   //myServo.write(close);
 
@@ -122,25 +99,7 @@ void setup() {
 
   randomSeed(analogRead(5));
 
-  //Shuffle();
-  //GenerateSolution();
-
   Restart();
-
-
-
-  /*
-  Printing lines to check if the shuffling and solution generation work
-  Serial.println(numbers[0]);
-  Serial.println(numbers[1]);
-  Serial.println(numbers[2]);
-  Serial.println(numbers[3]);
-  Serial.println(numbers[4]);
-  Serial.println(numbers[5]); */
-
-
-
-
 
   Serial.println("Welcome to mastermind!");
   Serial.println("guess the right sequence of 4 buttons");
@@ -150,15 +109,6 @@ void setup() {
 }
 
 void loop() {
-
-/*digitalWrite(8, HIGH);
-digitalWrite(9, HIGH);
-digitalWrite(10, HIGH);
-digitalWrite(11, HIGH);
-digitalWrite(12, HIGH);
-digitalWrite(13, HIGH);
-digitalWrite(14, HIGH);
-digitalWrite(15, HIGH);*/
 
     while (guessNumber < guessSize){
       CheckForInput();
@@ -315,38 +265,9 @@ void CheckGuess(){
       }
     }
   }
-
-  /*Serial.println("");
-  Serial.print("Greens:" );
-  Serial.println (greens);
-  Serial.print("Yellows:" );
-  Serial.println (yellows);*/
-
-  /*
-  //Light green and yellows
-  for (int i = greenLed_1; i < greenLed_1 + greens; i++){
-    Serial.print("green led in pin: ");
-    Serial.print(i);
-    Serial.println(" is on");
-
-    digitalWrite(i, HIGH);
-  }
-
-  for (int i = yellowLed_1; i < yellowLed_1 + yellows; i++){
-    Serial.print("yellow led in pin: ");
-    Serial.print(i);
-    Serial.println(" is on");
-
-    digitalWrite(i, HIGH);
-  }
-  */
-
 }
 
 void KillLights(){
-  /*for (int i = greenLed_1; i <= yellowLed_4; i++){
-    digitalWrite(i, LOW);
-  }*/
 
   for (int i = pA; i <= pG; i++){
     digitalWrite(i, HIGH);
